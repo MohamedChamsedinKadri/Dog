@@ -6,8 +6,8 @@ data class DogModel(
 ) {
     val displayName: String
         get() = if (subBreed != null) {
-            "$subBreed $breed" // e.g., "boston bulldog"
+            "$subBreed $breed"
         } else {
-            breed.replaceFirstChar { it.uppercase() } // Capitalize breed name
+            breed.replaceFirstChar { it.uppercase() }
         }
 }

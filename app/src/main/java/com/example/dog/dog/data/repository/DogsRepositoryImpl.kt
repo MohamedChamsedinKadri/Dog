@@ -15,16 +15,12 @@ class DogsRepositoryImpl @Inject constructor(
         try {
             val response = api.getDogBreeds()
             if (response.status == "success") {
-                // The API returns: {"breed": ["subbreed1", "subbreed2"], ...}
-                // We need to extract all breeds and handle sub-breeds
                 val dogs = mutableListOf<DogModel>()
 
                 response.message.forEach { (breed, subBreeds) ->
                     if (subBreeds.isEmpty()) {
-                        // If no sub-breeds, just add the main breed
                         dogs.add(DogModel(breed = breed, subBreed = null))
                     } else {
-                        // If there are sub-breeds, add each combination
                         subBreeds.forEach { subBreed ->
                             dogs.add(DogModel(breed = breed, subBreed = subBreed))
                         }
@@ -36,7 +32,6 @@ class DogsRepositoryImpl @Inject constructor(
                 emit(emptyList())
             }
         } catch (e: Exception) {
-            // Re-throw the exception so ViewModel can catch it
             throw e
         }
     }
